@@ -7,19 +7,22 @@ import java.util.Queue;
  */
 public class Consumer implements Runnable {
 
-    Queue<Integer> queue;
-    int size;
+    private Queue<Integer> queue;
+    private int size;
+    private ProducerComsumerMonitor monitor;
 
-    public Consumer(Queue<Integer> queue, int size) {
+    public Consumer(Queue<Integer> queue, int size, ProducerComsumerMonitor monitor) {
         this.queue = queue;
         this.size = size;
+        this.monitor = monitor;
     }
 
     @Override
     public void run() {
         while (true) {
             try {
-                consume();
+//                consume();
+                monitor.cosume();
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();

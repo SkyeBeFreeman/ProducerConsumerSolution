@@ -10,8 +10,9 @@ public class ProducerComsumerSolution {
 
     public static void main(String[] args) {
         Queue<Integer> shareQueue = new LinkedList<>();
-        Thread producerThread = new Thread(new Producer(shareQueue, 4), "Producer");
-        Thread consumerThread = new Thread(new Consumer(shareQueue, 4), "Consumer");
+        ProducerComsumerMonitor monitor = new ProducerComsumerMonitor(4);
+        Thread producerThread = new Thread(new Producer(shareQueue, 4, monitor), "Producer");
+        Thread consumerThread = new Thread(new Consumer(shareQueue, 4, monitor), "Consumer");
         producerThread.start();
         consumerThread.start();
     }

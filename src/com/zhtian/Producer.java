@@ -7,19 +7,22 @@ import java.util.Queue;
  */
 public class Producer implements Runnable {
 
-    Queue<Integer> queue;
-    int size;
+    private Queue<Integer> queue;
+    private int size;
+    private ProducerComsumerMonitor monitor;
 
-    public Producer(Queue<Integer> queue, int size) {
+    public Producer(Queue<Integer> queue, int size, ProducerComsumerMonitor monitor) {
         this.queue = queue;
         this.size = size;
+        this.monitor = monitor;
     }
 
     @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
             try {
-                produce(i);
+//                produce(i);
+                monitor.produce(i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
