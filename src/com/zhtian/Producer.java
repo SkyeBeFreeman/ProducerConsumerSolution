@@ -28,12 +28,12 @@ public class Producer implements Runnable {
 
     private void produce(int i) throws InterruptedException {
         synchronized (queue) {
-            while (queue.size() == size) {
+            while (queue.size() == this.size) {
                 System.out.println("Queue is full and its size is " + queue.size() + ". " + Thread.currentThread().getName() + " is waiting.");
                 queue.wait();
             }
-            System.out.println("Producer produce " + i + ".");
             queue.add(i);
+            System.out.println("Producer produce " + i);
             queue.notifyAll();
         }
     }

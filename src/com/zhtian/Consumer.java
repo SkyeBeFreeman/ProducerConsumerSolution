@@ -19,7 +19,7 @@ public class Consumer implements Runnable {
     public void run() {
         while (true) {
             try {
-                System.out.println("Consumer consume " + consume());
+                consume();
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -27,14 +27,14 @@ public class Consumer implements Runnable {
         }
     }
 
-    private int consume() throws InterruptedException{
+    private void consume() throws InterruptedException{
         synchronized (queue) {
             while (queue.isEmpty()) {
                 System.out.println("Queue is empty and its size is " + queue.size() + ". " + Thread.currentThread().getName() + " is waiting.");
                 queue.wait();
             }
+            System.out.println("Consumer consume " + queue.poll());
             queue.notifyAll();
-            return queue.poll();
         }
     }
 }
